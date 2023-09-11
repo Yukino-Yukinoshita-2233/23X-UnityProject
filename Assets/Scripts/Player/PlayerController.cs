@@ -6,7 +6,7 @@ using Unity.Game.Constants;
 public class PlayerController : MonoBehaviour
 {
     public float rotationSpeed = 10f;
-    private float moveSpeed = 3f;
+    public float moveSpeed = 3f;
     private float mouseX;
     private float mouseY;
     private CharacterController controller;

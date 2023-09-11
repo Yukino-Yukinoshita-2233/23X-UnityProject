@@ -15,7 +15,6 @@ public class Spawn : MonoBehaviour
     private List<GameObject> groundLists = new();
     void Start()
     {
-
         var height = new Vector3(0, 1, 0);
         if (Ground != null)
         {
@@ -40,5 +39,10 @@ public class Spawn : MonoBehaviour
             int num2 = Random.Range(0, groundLists.Count);
             Instantiate(Player, groundLists[num2].transform.position + height, Quaternion.identity);
         }
+    }
+
+    public List<GameObject> GetGroundLists()
+    {
+        return groundLists;
     }
 }
