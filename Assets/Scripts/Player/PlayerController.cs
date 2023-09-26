@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Game.Constants;
+using System;
+using Unity.VisualScripting;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,11 +13,15 @@ public class PlayerController : MonoBehaviour
     private float mouseX;
     private float mouseY;
     private CharacterController controller;
+    public float forceMagnitude = 10f; // 力的大小
+    private Rigidbody rb; // 物体的刚体组件
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -22,7 +29,47 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         MouseController();
+        Gravity();
+
     }
+
+    private void Gravity()
+    {
+        // 获取物体的位置
+        Vector3 objectPosition = transform.position;
+
+        // 从物体中心向下发射一条射线
+        Ray ray = new Ray(objectPosition, -Vector3.up);
+
+        // 创建一个 RaycastHit 对象，用于存储射线检测的结果
+        RaycastHit hit;
+
+        
+
+        // 进行射线检测
+        if (Physics.Raycast(ray, out hit))
+        {
+            // 检测到物体
+            GameObject hitObject = hit.collider.gameObject;
+            float distance = hit.distance; // 获取射线击中物体的距离
+
+            Debug.Log("射线击中了物体：" + hitObject.name);
+            Debug.Log("距离：" + distance);
+            if (distance > 1)
+            {
+                gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
+            }
+
+        }
+        else
+        {
+            gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
+        }
+        
+
+
+    }
+
 
     void HandleMovement()
     {
@@ -33,8 +80,6 @@ public class PlayerController : MonoBehaviour
         {
             controller.Move(transform.rotation * dir * moveSpeed * Time.deltaTime);
         }
-
-
     }
 
     void MouseController()

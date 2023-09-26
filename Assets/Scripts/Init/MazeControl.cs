@@ -41,13 +41,13 @@ public class Maze : MonoBehaviour
             //    }
             //}
 
-            //// Generate Key
-            //int num1 = Random.Range(0, groundLists.Count);
-            //Instantiate(Key, groundLists[num1].transform.position + height, Quaternion.identity);
+            // Generate Key
+            int num1 = Random.Range(0, groundLists.Count);
+            Instantiate(Key, groundLists[num1].transform.position + height, Quaternion.identity);
 
-            //// Generate Player
-            //int num2 = Random.Range(0, groundLists.Count);
-            //Instantiate(Player, groundLists[num2].transform.position + height, Quaternion.identity);
+            // Generate Player
+            int num2 = Random.Range(0, groundLists.Count);
+            Instantiate(Player, groundLists[num2].transform.position + height, Quaternion.identity);
         }
     }
     void GenerateMaze()
