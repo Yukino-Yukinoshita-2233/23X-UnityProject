@@ -58,8 +58,8 @@ public class PlayerController : MonoBehaviour
             if (distance > 1)
             {
                 gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
+                
             }
-
         }
         else
         {

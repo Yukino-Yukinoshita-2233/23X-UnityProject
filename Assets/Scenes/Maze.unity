@@ -581,8 +581,10 @@ MonoBehaviour:
     type: 3}
   Player: {fileID: 499854506652050646, guid: 281251adc3f3b68498bd7229b6e091fe, type: 3}
   Key: {fileID: 2607648349422834434, guid: 0492ec58bca2ef6498c0eae6cfa675c6, type: 3}
-  Rows: 20
-  Columns: 20
+  PlayerNum: 1
+  Rows: 50
+  Columns: 50
+  Spacing: 2
 --- !u!1 &1845719714
 GameObject:
   m_ObjectHideFlags: 0
