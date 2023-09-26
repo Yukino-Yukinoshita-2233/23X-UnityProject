@@ -53,8 +53,8 @@ public class PlayerController : MonoBehaviour
             GameObject hitObject = hit.collider.gameObject;
             float distance = hit.distance; // 获取射线击中物体的距离
 
-            Debug.Log("射线击中了物体：" + hitObject.name);
-            Debug.Log("距离：" + distance);
+            //Debug.Log("射线击中了物体：" + hitObject.name);
+            //Debug.Log("距离：" + distance);
             if (distance > 1)
             {
                 gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
