@@ -8,12 +8,13 @@ public class MazeGenerator : MonoBehaviour
     public GameObject GroundPrefab; // 地面预制件
     public GameObject Player;
     public GameObject Key;
-    public int Rows = 20;            // 迷宫行数
-    public int Columns = 20;         // 迷宫列数
-
+    public int PlayerNum = 1;
+    public int Rows = 50;            // 迷宫行数
+    public int Columns = 50;         // 迷宫列数
+    public int Spacing = 2;          //间距
     private Transform mazeHolder;   // 用于容纳迷宫物体的父物体
     private bool[,] visited;        // 用于追踪哪些格子已经被访问过
-    private int cellSize = 1;       // 每个格子的大小，用于确定墙壁和地面位置
+    private float cellSize = 1.5f;       // 每个格子的大小，用于确定墙壁和地面位置
 
     private void Start()
     {
@@ -22,8 +23,6 @@ public class MazeGenerator : MonoBehaviour
         // Generate Key
         Instantiate(Key, new Vector3(Rows-2,1.5f,Columns-2), Quaternion.identity);
 
-        // Generate Player
-        Instantiate(Player, new Vector3(0, 1.5f,0), Quaternion.identity);
 
     }
 
@@ -60,6 +59,33 @@ public class MazeGenerator : MonoBehaviour
                 }
             }
         }
+        int PNum = 0;
+        while(PNum < PlayerNum)
+        {
+            int XP = Random.Range(0, Rows);
+            int ZP = Random.Range(0, Columns);
+
+            // 获取角色的位置
+            Vector3 objectPosition = new Vector3(XP, 1.5f, ZP);//Player.transform.position;
+                                                               // 从物体中心向下发射一条射线
+            Ray ray = new Ray(objectPosition, -Vector3.up);
+            // 创建一个 RaycastHit 对象，用于存储射线检测的结果
+            RaycastHit hit;
+            // 进行射线检测
+            if (Physics.Raycast(ray, out hit))
+            {
+                // 检测到物体
+                GameObject hitObject = hit.collider.gameObject;
+                if (hitObject != null)
+                {
+                    // Generate Player
+                    Instantiate(Player, new Vector3(XP, 1.5f, ZP), Quaternion.identity);
+                    PNum++;
+                }
+            }
+
+        }
+
     }
 
     void GeneratePath(int row, int col)
@@ -84,13 +110,13 @@ public class MazeGenerator : MonoBehaviour
             int newCol = col;
 
             if (directions[i] == 0) // 向上
-                newRow -= 2;
+                newRow -= Spacing;
             else if (directions[i] == 1) // 向右
-                newCol += 2;
+                newCol += Spacing;
             else if (directions[i] == 2) // 向下
-                newRow += 2;
+                newRow += Spacing;
             else if (directions[i] == 3) // 向左
-                newCol -= 2;
+                newCol -= Spacing;
 
             // 检查新的位置是否有效
             if (newRow >= 0 && newRow < Rows && newCol >= 0 && newCol < Columns && !visited[newRow, newCol])
