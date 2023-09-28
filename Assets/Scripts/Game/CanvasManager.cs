@@ -8,9 +8,11 @@ using System.Text;
 
 public class CanvasManager : MonoBehaviour
 {
-    public int Playerchoice { get; set; } = 0;
     TMP_InputField _ip;
     TMP_InputField _port;
+    GameObject _player_boy;
+    GameObject _player_girl;
+    uint _player_hash;
     void Start()
     {
         Button createBtn = GameObject.Find("CreateRoom").GetComponent<Button>();
@@ -22,12 +24,26 @@ public class CanvasManager : MonoBehaviour
         joinBtn.onClick.AddListener(OnJoinBtnClick);
 
         _player.onValueChanged.AddListener(OnPlayerValueChanged);
-
+        // DropDown添加Options
         foreach (var option in GameConstants.ChooseCharacter)
         {
             var newOption = new TMP_Dropdown.OptionData(option);
             _player.options.Add(newOption);
             _player.RefreshShownValue();
+        }
+
+        // 获取玩家
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            switch (player.name)
+            {
+                case "Player_Boy":
+                    _player_boy = player.gameObject;
+                    break;
+                case "Player_Girl":
+                    _player_girl = player.gameObject;
+                    break;
+            }
         }
     }
 
@@ -45,7 +61,7 @@ public class CanvasManager : MonoBehaviour
             // 设置客户端连接
             transport.SetConnectionData(_ip.text, port);
             // 客户端的角色选择
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.UTF8.GetBytes(Playerchoice.ToString());
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.UTF8.GetBytes(_player_hash.ToString());
             NetworkManager.Singleton.StartClient();
         }
         else
@@ -56,6 +72,18 @@ public class CanvasManager : MonoBehaviour
 
     private void OnPlayerValueChanged(int value)
     {
-        Playerchoice = value;
+        switch (value)
+        {
+            case 0:
+                _player_boy.SetActive(true);
+                _player_girl.SetActive(false);
+                _player_hash = _player_boy.GetComponent<NetworkObject>().PrefabIdHash;
+                break;
+            case 1:
+                _player_boy.SetActive(false);
+                _player_girl.SetActive(true);
+                _player_hash = _player_girl.GetComponent<NetworkObject>().PrefabIdHash;
+                break;
+        }
     }
 }
