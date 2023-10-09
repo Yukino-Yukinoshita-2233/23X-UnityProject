@@ -1,6 +1,4 @@
 using Unity.Netcode;
-using UnityEngine;
-using Unity.Game.Constants;
 using System.Text;
 
 public class ConnectionApprovalHandler : NetworkBehaviour

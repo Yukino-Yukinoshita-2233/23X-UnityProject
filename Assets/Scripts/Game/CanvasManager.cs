@@ -8,6 +8,8 @@ using System.Text;
 
 public class CanvasManager : MonoBehaviour
 {
+    public GameObject Player_Boy;
+    public GameObject Player_Girl;
     TMP_InputField _ip;
     TMP_InputField _port;
     GameObject _player_boy;
@@ -51,6 +53,8 @@ public class CanvasManager : MonoBehaviour
     {
         // 启动服务端
         NetworkManager.Singleton.StartHost();
+        // 进入大厅
+        GameManager.Instance.LoadScene("Lobby");
     }
 
     private void OnJoinBtnClick()
@@ -77,12 +81,16 @@ public class CanvasManager : MonoBehaviour
             case 0:
                 _player_boy.SetActive(true);
                 _player_girl.SetActive(false);
-                _player_hash = _player_boy.GetComponent<NetworkObject>().PrefabIdHash;
+                // _player_hash = _player_boy.GetComponent<NetworkObject>().PrefabIdHash;
+                NetworkManager.Singleton.NetworkConfig.PlayerPrefab = Player_Boy;
+                _player_hash = Player_Boy.GetComponent<NetworkObject>().PrefabIdHash;
                 break;
             case 1:
                 _player_boy.SetActive(false);
                 _player_girl.SetActive(true);
-                _player_hash = _player_girl.GetComponent<NetworkObject>().PrefabIdHash;
+                // _player_hash = _player_girl.GetComponent<NetworkObject>().PrefabIdHash;
+                NetworkManager.Singleton.NetworkConfig.PlayerPrefab = Player_Girl;
+                _player_hash = Player_Girl.GetComponent<NetworkObject>().PrefabIdHash;
                 break;
         }
     }

@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Game.Constants;
-using System;
-using Unity.VisualScripting;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,8 +8,8 @@ public class PlayerController : MonoBehaviour
     private float mouseX;
     private float mouseY;
     private CharacterController controller;
-    public float forceMagnitude = 10f; // Á¦µÄ´óÐ¡
-    private Rigidbody rb; // ÎïÌåµÄ¸ÕÌå×é¼þ
+    public float forceMagnitude = 10f; // ï¿½ï¿½ï¿½Ä´ï¿½Ð¡
+    private Rigidbody rb; // ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     void Start()
     {
@@ -35,37 +30,37 @@ public class PlayerController : MonoBehaviour
 
     private void Gravity()
     {
-        // »ñÈ¡ÎïÌåµÄÎ»ÖÃ
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         Vector3 objectPosition = transform.position;
 
-        // ´ÓÎïÌåÖÐÐÄÏòÏÂ·¢ÉäÒ»ÌõÉäÏß
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Ray ray = new Ray(objectPosition, -Vector3.up);
 
-        // ´´½¨Ò»¸ö RaycastHit ¶ÔÏó£¬ÓÃÓÚ´æ´¢ÉäÏß¼ì²âµÄ½á¹û
+        // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ RaycastHit ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´æ´¢ï¿½ï¿½ï¿½ß¼ï¿½ï¿½Ä½ï¿½ï¿½
         RaycastHit hit;
 
-        
 
-        // ½øÐÐÉäÏß¼ì²â
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½
         if (Physics.Raycast(ray, out hit))
         {
-            // ¼ì²âµ½ÎïÌå
+            // ï¿½ï¿½âµ½ï¿½ï¿½ï¿½ï¿½
             GameObject hitObject = hit.collider.gameObject;
-            float distance = hit.distance; // »ñÈ¡ÉäÏß»÷ÖÐÎïÌåµÄ¾àÀë
+            float distance = hit.distance; // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 
-            //Debug.Log("ÉäÏß»÷ÖÐÁËÎïÌå£º" + hitObject.name);
-            //Debug.Log("¾àÀë£º" + distance);
+            //Debug.Log("ï¿½ï¿½ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£º" + hitObject.name);
+            //Debug.Log("ï¿½ï¿½ï¿½ë£º" + distance);
             if (distance > 1)
             {
                 gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
-                
+
             }
         }
         else
         {
             gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
         }
-        
+
 
 
     }
