@@ -51,6 +51,8 @@ public class CanvasManager : MonoBehaviour
 
     private void OnCreateBtnClick()
     {
+        // 联机申请
+        // NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
         // 启动服务端
         NetworkManager.Singleton.StartHost();
         // 进入大厅

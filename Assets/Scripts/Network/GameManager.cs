@@ -7,6 +7,7 @@ public class GameManager : NetworkBehaviour
 
     void Start()
     {
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 

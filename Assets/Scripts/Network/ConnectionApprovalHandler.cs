@@ -1,14 +1,11 @@
-using Unity.Netcode;
 using System.Text;
+using Unity.Netcode;
 
 public class ConnectionApprovalHandler : NetworkBehaviour
 {
     public override void OnNetworkSpawn()
     {
-        if (IsServer)
-        {
-            NetworkManager.ConnectionApprovalCallback = ApprovalCheck;
-        }
+        NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
     }
 
     private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
