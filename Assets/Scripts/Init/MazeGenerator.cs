@@ -125,7 +125,8 @@ public class MazeGenerator : MonoBehaviour
             // 创建一个 RaycastHit 对象，用于存储射线检测的结果
             RaycastHit hit;
             // 进行射线检测
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
+            /**/
+            if (Physics.Raycast(ray, out hit,2))
             {
                 // 检测到物体
                 GameObject hitObject = hit.collider.gameObject;
@@ -135,7 +136,18 @@ public class MazeGenerator : MonoBehaviour
                     Instantiate(Player, new Vector3(XP, 1.5f, ZP), Quaternion.identity);
                     PNum++;
                 }
-            }
+            }/*
+            if (Physics.Raycast(ray, out hit))
+            {
+                // 检测到物体
+                GameObject hitObject = hit.collider.gameObject;
+                if (hitObject != null)
+                {
+                    // Generate Player
+                    Instantiate(Player, new Vector3(XP, 1.5f, ZP), Quaternion.identity);
+                    PNum++;
+                }
+            }*/
 
         }
     }
