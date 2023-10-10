@@ -19,7 +19,7 @@ public class MazeGenerator : MonoBehaviour
     private Transform LightHolder;   // 用于容纳灯光物体的父物体
     private bool[,] visited;        // 用于追踪哪些格子已经被访问过
     private float cellSize = 1.5f;       // 每个格子的大小，用于确定墙壁和地面位置
-
+    public LayerMask GroundLayer;
     private void Start()
     {
         GenerateMaze();
@@ -125,7 +125,7 @@ public class MazeGenerator : MonoBehaviour
             // 创建一个 RaycastHit 对象，用于存储射线检测的结果
             RaycastHit hit;
             // 进行射线检测
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, GroundLayer))
             {
                 // 检测到物体
                 GameObject hitObject = hit.collider.gameObject;
