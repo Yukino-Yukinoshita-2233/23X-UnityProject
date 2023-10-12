@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class MazeGenerator : MonoBehaviour
 {
+    public static MazeGenerator Instance;
+    public Vector3 spawnpositon { get; set; }
     public GameObject WallPrefab;   // 墙壁预制件
     public GameObject GroundPrefab; // 地面预制件
     public GameObject Player;
@@ -22,6 +24,7 @@ public class MazeGenerator : MonoBehaviour
     public LayerMask GroundLayer;
     private void Start()
     {
+        Instance = this;
         GenerateMaze();
         PlayerCreate();
         LightCreate();
@@ -110,7 +113,7 @@ public class MazeGenerator : MonoBehaviour
             }
         }
     }
-    void PlayerCreate()
+    public void PlayerCreate()
     {
         int PNum = 0;
         while (PNum < PlayerNum)
@@ -118,10 +121,12 @@ public class MazeGenerator : MonoBehaviour
             int XP = Random.Range(0, Rows/2);
             int ZP = Random.Range(0, Columns/2);
 
+            spawnpositon = new Vector3(XP, 1.5f, ZP);
+
             // 获取角色的位置
-            Vector3 objectPosition = new Vector3(XP, 1.5f, ZP);//Player.transform.position;
+            // Vector3 objectPosition = spawnpositon;//Player.transform.position;
                                                                // 从物体中心向下发射一条射线
-            Ray ray = new Ray(objectPosition, -Vector3.up);
+            Ray ray = new Ray(spawnpositon, -Vector3.up);
             // 创建一个 RaycastHit 对象，用于存储射线检测的结果
             RaycastHit hit;
             // 进行射线检测
@@ -133,7 +138,7 @@ public class MazeGenerator : MonoBehaviour
                 if (hitObject != null)
                 {
                     // Generate Player
-                    Instantiate(Player, new Vector3(XP, 1.5f, ZP), Quaternion.identity);
+                    Instantiate(Player, spawnpositon, Quaternion.identity);
                     PNum++;
                 }
             }/*
