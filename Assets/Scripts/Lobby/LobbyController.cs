@@ -75,6 +75,15 @@ public class LobbyController : NetworkBehaviour
             {
                 AddPlayer(playerInfo);
             }
+            UpdatePlayerCells();
+        }
+    }
+
+    private void UpdatePlayerCells()
+    {
+        foreach (var item in _allPlayerInfo)
+        {
+            _cellList[item.Key].SetReady(item.Value.isReady);
         }
     }
 
@@ -82,6 +91,7 @@ public class LobbyController : NetworkBehaviour
     {
         PlayerInfo info = _allPlayerInfo[id];
         info.isReady = isReady;
+        _allPlayerInfo[id] = info;
     }
 
     void GetAllComponent()
@@ -108,6 +118,24 @@ public class LobbyController : NetworkBehaviour
     private void OnReadyToggleChanged(bool arg0)
     {
         _cellList[NetworkManager.LocalClientId].SetReady(arg0);
+        UpdatePlayerInfo(NetworkManager.LocalClientId, arg0);
+        if (IsServer)
+        {
+            UpdateAllPlayerInfos();
+        }
+        else
+        {
+            UpdateAllPlayerInfosServerRpc(_allPlayerInfo[NetworkManager.LocalClientId]);
+        }
+
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdateAllPlayerInfosServerRpc(PlayerInfo playerInfo)
+    {
+        _allPlayerInfo[playerInfo.id] = playerInfo;
+        _cellList[playerInfo.id].SetReady(playerInfo.isReady);
+        UpdateAllPlayerInfos();
     }
 
     private void OnStartBtnClick()
