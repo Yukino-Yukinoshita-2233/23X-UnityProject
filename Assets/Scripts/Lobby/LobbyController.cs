@@ -8,11 +8,13 @@ public struct PlayerInfo : INetworkSerializable
 {
     public ulong id;
     public bool isReady;
+    public int gender;
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
     {
         serializer.SerializeValue(ref id);
         serializer.SerializeValue(ref isReady);
+        serializer.SerializeValue(ref gender);
     }
 }
 
@@ -22,6 +24,8 @@ public class LobbyController : NetworkBehaviour
     private GameObject _cell;
     private Button _startBtn;
     private Toggle _isReady;
+    private Toggle _male;
+    private Toggle _female;
     private Dictionary<ulong, PlayerListCell> _cellList = new();
     private Dictionary<ulong, PlayerInfo> _allPlayerInfo = new();
 
@@ -38,9 +42,13 @@ public class LobbyController : NetworkBehaviour
         PlayerInfo playerInfo = new()
         {
             id = NetworkManager.LocalClientId,
-            isReady = false
+            isReady = false,
+            gender = 0
+
         };
         AddPlayer(playerInfo);
+
+        base.OnNetworkSpawn();
     }
 
     private void OnClientConnectdCallback(ulong obj)
@@ -48,7 +56,8 @@ public class LobbyController : NetworkBehaviour
         PlayerInfo playerInfo = new()
         {
             id = obj,
-            isReady = false
+            isReady = false,
+            gender = 0
         };
         AddPlayer(playerInfo);
         UpdateAllPlayerInfos();
@@ -83,7 +92,7 @@ public class LobbyController : NetworkBehaviour
     {
         foreach (var item in _allPlayerInfo)
         {
-            _cellList[item.Key].SetReady(item.Value.isReady);
+            _cellList[item.Key].UpdateInfo(item.Value);
         }
     }
 
@@ -100,6 +109,57 @@ public class LobbyController : NetworkBehaviour
         _cell = _content.transform.GetChild(0).gameObject;
         _startBtn = GameObject.Find("Canvas/Start").GetComponent<Button>();
         _isReady = GameObject.Find("Canvas/Ready").GetComponent<Toggle>();
+
+        _male = GameObject.Find("Canvas/Gender/Male").GetComponent<Toggle>();
+        _female = GameObject.Find("Canvas/Gender/Female").GetComponent<Toggle>();
+
+        _male.onValueChanged.AddListener(OnMaleChanged);
+        _female.onValueChanged.AddListener(OnFemaleChanged);
+
+    }
+
+    private void OnFemaleChanged(bool arg0)
+    {
+        if (arg0)
+        {
+            PlayerInfo playerInfo = _allPlayerInfo[NetworkManager.LocalClientId];
+            playerInfo.gender = 1;
+            _allPlayerInfo[NetworkManager.LocalClientId] = playerInfo;
+            _cellList[NetworkManager.LocalClientId].UpdateInfo(playerInfo);
+
+            if (IsServer)
+            {
+                UpdateAllPlayerInfos();
+            }
+            else
+            {
+                UpdateAllPlayerInfosServerRpc(_allPlayerInfo[NetworkManager.LocalClientId]);
+            }
+
+            ChoosePlayer.Instance.SwitchPlayer(1);
+        }
+    }
+
+    private void OnMaleChanged(bool arg0)
+    {
+        if (arg0)
+        {
+            PlayerInfo playerInfo = _allPlayerInfo[NetworkManager.LocalClientId];
+            playerInfo.gender = 0;
+            _allPlayerInfo[NetworkManager.LocalClientId] = playerInfo;
+            _cellList[NetworkManager.LocalClientId].UpdateInfo(playerInfo);
+
+            if (IsServer)
+            {
+                UpdateAllPlayerInfos();
+            }
+            else
+            {
+                UpdateAllPlayerInfosServerRpc(_allPlayerInfo[NetworkManager.LocalClientId]);
+            }
+
+            ChoosePlayer.Instance.SwitchPlayer(0);
+        }
     }
 
     void HandleEvent()
@@ -134,7 +194,7 @@ public class LobbyController : NetworkBehaviour
     private void UpdateAllPlayerInfosServerRpc(PlayerInfo playerInfo)
     {
         _allPlayerInfo[playerInfo.id] = playerInfo;
-        _cellList[playerInfo.id].SetReady(playerInfo.isReady);
+        _cellList[playerInfo.id].UpdateInfo(playerInfo);
         UpdateAllPlayerInfos();
     }
 
