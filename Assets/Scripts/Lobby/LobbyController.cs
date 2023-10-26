@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public struct PlayerInfo : INetworkSerializable
@@ -63,12 +64,24 @@ public class LobbyController : NetworkBehaviour
         UpdateAllPlayerInfos();
     }
 
+    /// <summary>
+    /// 服务端自己调用的方法
+    /// </summary>
     private void UpdateAllPlayerInfos()
     {
+        bool toStart = true;
         foreach (var item in _allPlayerInfo)
         {
+            if (!item.Value.isReady)
+            {
+                toStart = false;
+            }
             UpdatePlayerInfoClientRpc(item.Value);
         }
+
+        // 开始游戏
+        _startBtn.gameObject.SetActive(toStart);
+
     }
 
     [ClientRpc]
@@ -108,6 +121,7 @@ public class LobbyController : NetworkBehaviour
         _content = GameObject.Find("Canvas/List/Viewport/Content");
         _cell = _content.transform.GetChild(0).gameObject;
         _startBtn = GameObject.Find("Canvas/Start").GetComponent<Button>();
+        _startBtn.gameObject.SetActive(false);
         _isReady = GameObject.Find("Canvas/Ready").GetComponent<Toggle>();
 
         _male = GameObject.Find("Canvas/Gender/Male").GetComponent<Toggle>();
@@ -200,7 +214,7 @@ public class LobbyController : NetworkBehaviour
 
     private void OnStartBtnClick()
     {
-        throw new NotImplementedException();
+        NetworkManager.Singleton.SceneManager.LoadScene("Maze", LoadSceneMode.Single);
     }
 
     private void AddPlayer(PlayerInfo playerInfo)
