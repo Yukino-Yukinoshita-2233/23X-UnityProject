@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SkyLightControl : MonoBehaviour
+public class SkyLightProp : MonoBehaviour
 {
     public float maxIntensity = 1f;     // 最高强度
 
