@@ -172,15 +172,6 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
-    "com.unity.universaltoonshader.urp": {
-      "version": "https://github.com/Yukino-Yukinoshita-2233/UnityChanToonShaderVer2_Project-urp-2.5.1.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.render-pipelines.universal": "7.3.1"
-      },
-      "hash": "d70449f93df51cdbcbcf4b584aacc64ec9c06293"
-    },
     "com.unity.visualscripting": {
       "version": "1.9.1",
       "depth": 0,
