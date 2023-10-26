@@ -123,14 +123,11 @@ public class MazeGenerator : MonoBehaviour
 
             spawnpositon = new Vector3(XP, 1.5f, ZP);
 
-            // 获取角色的位置
-            // Vector3 objectPosition = spawnpositon;//Player.transform.position;
-                                                               // 从物体中心向下发射一条射线
+            // 从物体中心向下发射一条射线
             Ray ray = new Ray(spawnpositon, -Vector3.up);
             // 创建一个 RaycastHit 对象，用于存储射线检测的结果
             RaycastHit hit;
             // 进行射线检测
-            /**/
             if (Physics.Raycast(ray, out hit,2))
             {
                 // 检测到物体
@@ -141,18 +138,7 @@ public class MazeGenerator : MonoBehaviour
                     Instantiate(Player, spawnpositon, Quaternion.identity);
                     PNum++;
                 }
-            }/*
-            if (Physics.Raycast(ray, out hit))
-            {
-                // 检测到物体
-                GameObject hitObject = hit.collider.gameObject;
-                if (hitObject != null)
-                {
-                    // Generate Player
-                    Instantiate(Player, new Vector3(XP, 1.5f, ZP), Quaternion.identity);
-                    PNum++;
-                }
-            }*/
+            }
 
         }
     }
@@ -165,7 +151,6 @@ public class MazeGenerator : MonoBehaviour
         {
             int XP = Random.Range(0, Mathf.FloorToInt(Rows * cellSize));
             int ZP = Random.Range(0, Mathf.FloorToInt(Columns * cellSize));
-            //bug.Log(XP + "," + ZP);
             Instantiate(Light, new Vector3(XP, 20f, ZP), Quaternion.Euler(90f,0f,0f), LightHolder);
             LNum++;
         }
