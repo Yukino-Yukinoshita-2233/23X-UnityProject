@@ -29,7 +29,7 @@ public class CanvasManager : NetworkBehaviour
         // 启动服务端
         NetworkManager.Singleton.StartHost();
         // 进入大厅
-        NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        GameManager.Instance.LoadScene("Lobby");
     }
 
     private void OnJoinBtnClick()

@@ -21,6 +21,8 @@ public struct PlayerInfo : INetworkSerializable
 
 public class LobbyController : NetworkBehaviour
 {
+    public static LobbyController Instance;
+    public Dictionary<ulong, PlayerInfo> AllPlayerInfos { get { return _allPlayerInfo; } }
     private GameObject _content;
     private GameObject _cell;
     private Button _startBtn;
@@ -32,6 +34,7 @@ public class LobbyController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        Instance = this;
         if (IsHost)
         {
             NetworkManager.OnClientConnectedCallback += OnClientConnectdCallback;
