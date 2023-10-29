@@ -30,8 +30,6 @@ public class MazeGenerator : MonoBehaviour
         SkyLightCreate();
         // Generate Key
         Instantiate(Key, new Vector3(Rows - 2, 1.5f, Columns - 2), Quaternion.identity);
-
-
     }
 
     void GenerateMaze()
@@ -112,6 +110,7 @@ public class MazeGenerator : MonoBehaviour
             }
         }
     }
+
     public void PlayerCreate()
     {
         int PNum = 0;
@@ -142,6 +141,7 @@ public class MazeGenerator : MonoBehaviour
 
         }
     }
+
     void LightCreate()
     {
         LightHolder = new GameObject("Light").transform;
@@ -155,6 +155,7 @@ public class MazeGenerator : MonoBehaviour
             LNum++;
         }
     }
+
     void SkyLightCreate()
     {
         Instantiate(SkyLight, new Vector3(Rows * cellSize / 2, 50f, Columns * cellSize / 2), Quaternion.Euler(90f, 0f, 0f));

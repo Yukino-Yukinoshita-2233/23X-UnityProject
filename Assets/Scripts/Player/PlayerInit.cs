@@ -1,3 +1,4 @@
+using Cinemachine.Examples;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class PlayerInit : NetworkBehaviour
         playerSync.enabled = true;
         if (IsLocalPlayer)
         {
+            Player.GetComponent<PlayerMove>().enabled = true;
             CameraController.Instance.SetFollowTarget(Player);
         }
     }

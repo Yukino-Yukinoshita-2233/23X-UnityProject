@@ -1264,6 +1264,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkyLight
       objectReference: {fileID: 0}
+    - target: {fileID: 7604516128532823484, guid: ce0514401d08a674ca9bdb496d0c5e04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
