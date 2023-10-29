@@ -99,6 +99,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -5399006258570094722}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2bcbf978ca98a61428c139a7bd8458b9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 826768838878199302}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2bcbf978ca98a61428c139a7bd8458b9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1482044882402275817}
   m_SourcePrefab: {fileID: 100100000, guid: 2bcbf978ca98a61428c139a7bd8458b9, type: 3}
 --- !u!1 &1410325713818736360 stripped
 GameObject:
@@ -173,3 +181,34 @@ MonoBehaviour:
   JumpTime: 1
   InputForward: 0
   RotatePlayer: 1
+--- !u!114 &826768838878199302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410325713818736360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289d6039ce3290c41af9a6b5ae792870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerballPrefab: {fileID: 7154225924340005508, guid: 648ace823a622db47ae8ef31935c3767,
+    type: 3}
+  powerballSillPrefab: {fileID: 1949363560281996129, guid: bfaa6c9c6011ef041b30913a60b64c37,
+    type: 3}
+  powerballSpeed: 10
+  BallSum: 5
+--- !u!114 &1482044882402275817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410325713818736360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce843f04c506cc48b1bd9a72e14dee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxIntensity: 1
