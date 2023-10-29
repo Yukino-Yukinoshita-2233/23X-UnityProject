@@ -5,22 +5,21 @@ using System.Collections.Generic;
 public class MazeGenerator : MonoBehaviour
 {
     public static MazeGenerator Instance;
-    public Vector3 spawnpositon { get; set; }
-    public GameObject WallPrefab;   // Ç½±ÚÔ¤ÖÆ¼ş
-    public GameObject GroundPrefab; // µØÃæÔ¤ÖÆ¼ş
-    public GameObject Player;
+    public Vector3 Spawnpositon { get; set; }
+    public GameObject WallPrefab;   // å¢™å£é¢„åˆ¶ä»¶
+    public GameObject GroundPrefab; // åœ°é¢é¢„åˆ¶ä»¶
     public GameObject Key;
     public GameObject Light;
     public GameObject SkyLight;
     public int PlayerNum = 1;
     public int LightNum = 20;
-    public int Rows = 50;            // ÃÔ¹¬ĞĞÊı
-    public int Columns = 50;         // ÃÔ¹¬ÁĞÊı
-    public int Spacing = 2;          //¼ä¾à
-    private Transform mazeHolder;   // ÓÃÓÚÈİÄÉÃÔ¹¬ÎïÌåµÄ¸¸ÎïÌå
-    private Transform LightHolder;   // ÓÃÓÚÈİÄÉµÆ¹âÎïÌåµÄ¸¸ÎïÌå
-    private bool[,] visited;        // ÓÃÓÚ×·×ÙÄÄĞ©¸ñ×ÓÒÑ¾­±»·ÃÎÊ¹ı
-    private float cellSize = 1.5f;       // Ã¿¸ö¸ñ×ÓµÄ´óĞ¡£¬ÓÃÓÚÈ·¶¨Ç½±ÚºÍµØÃæÎ»ÖÃ
+    public int Rows = 50;            // è¿·å®«è¡Œæ•°
+    public int Columns = 50;         // è¿·å®«åˆ—æ•°
+    public int Spacing = 2;          //é—´è·
+    private Transform mazeHolder;   // ç”¨äºå®¹çº³è¿·å®«ç‰©ä½“çš„çˆ¶ç‰©ä½“
+    private Transform LightHolder;   // ç”¨äºå®¹çº³ç¯å…‰ç‰©ä½“çš„çˆ¶ç‰©ä½“
+    private bool[,] visited;        // ç”¨äºè¿½è¸ªå“ªäº›æ ¼å­å·²ç»è¢«è®¿é—®è¿‡
+    private float cellSize = 1.5f;       // æ¯ä¸ªæ ¼å­çš„å¤§å°ï¼Œç”¨äºç¡®å®šå¢™å£å’Œåœ°é¢ä½ç½®
     public LayerMask GroundLayer;
     private void Start()
     {
@@ -30,7 +29,7 @@ public class MazeGenerator : MonoBehaviour
         LightCreate();
         SkyLightCreate();
         // Generate Key
-        Instantiate(Key, new Vector3(Rows-2,1.5f,Columns-2), Quaternion.identity);
+        Instantiate(Key, new Vector3(Rows - 2, 1.5f, Columns - 2), Quaternion.identity);
 
 
     }
@@ -40,7 +39,7 @@ public class MazeGenerator : MonoBehaviour
         mazeHolder = new GameObject("Maze").transform;
         visited = new bool[Rows, Columns];
 
-        // ³õÊ¼»¯visitedÊı×é
+        // åˆå§‹åŒ–visitedæ•°ç»„
         for (int row = 0; row < Rows; row++)
         {
             for (int col = 0; col < Columns; col++)
@@ -49,10 +48,10 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        // ´ÓÆğÊ¼µã¿ªÊ¼Éú³ÉÃÔ¹¬
+        // ä»èµ·å§‹ç‚¹å¼€å§‹ç”Ÿæˆè¿·å®«
         GeneratePath(0, 0);
 
-        // ¸ù¾İvisitedÊı×éÉú³ÉÃÔ¹¬Ç½±ÚºÍµØÃæ
+        // æ ¹æ®visitedæ•°ç»„ç”Ÿæˆè¿·å®«å¢™å£å’Œåœ°é¢
         for (int row = 0; row < Rows; row++)
         {
             for (int col = 0; col < Columns; col++)
@@ -74,7 +73,7 @@ public class MazeGenerator : MonoBehaviour
     {
         visited[row, col] = true;
 
-        // Ëæ»ú´òÂÒËÄ¸ö·½ÏòµÄË³Ğò
+        // éšæœºæ‰“ä¹±å››ä¸ªæ–¹å‘çš„é¡ºåº
         int[] directions = { 0, 1, 2, 3 };
         System.Random random = new System.Random();
         for (int i = 0; i < directions.Length; i++)
@@ -85,30 +84,30 @@ public class MazeGenerator : MonoBehaviour
             directions[randomIndex] = temp;
         }
 
-        // ³¢ÊÔÏòËÄ¸ö·½ÏòÇ°½ø
+        // å°è¯•å‘å››ä¸ªæ–¹å‘å‰è¿›
         for (int i = 0; i < 4; i++)
         {
             int newRow = row;
             int newCol = col;
 
-            if (directions[i] == 0) // ÏòÉÏ
+            if (directions[i] == 0) // å‘ä¸Š
                 newRow -= Spacing;
-            else if (directions[i] == 1) // ÏòÓÒ
+            else if (directions[i] == 1) // å‘å³
                 newCol += Spacing;
-            else if (directions[i] == 2) // ÏòÏÂ
+            else if (directions[i] == 2) // å‘ä¸‹
                 newRow += Spacing;
-            else if (directions[i] == 3) // Ïò×ó
+            else if (directions[i] == 3) // å‘å·¦
                 newCol -= Spacing;
 
-            // ¼ì²éĞÂµÄÎ»ÖÃÊÇ·ñÓĞĞ§
+            // æ£€æŸ¥æ–°çš„ä½ç½®æ˜¯å¦æœ‰æ•ˆ
             if (newRow >= 0 && newRow < Rows && newCol >= 0 && newCol < Columns && !visited[newRow, newCol])
             {
-                // ´òÍ¨Ç½±Ú
+                // æ‰“é€šå¢™å£
                 int wallRow = (row + newRow) / 2;
                 int wallCol = (col + newCol) / 2;
                 visited[wallRow, wallCol] = true;
                 //Debug.Log(visited[wallRow, wallCol]);
-                // µİ¹éÉú³ÉÂ·¾¶
+                // é€’å½’ç”Ÿæˆè·¯å¾„
                 GeneratePath(newRow, newCol);
             }
         }
@@ -118,31 +117,32 @@ public class MazeGenerator : MonoBehaviour
         int PNum = 0;
         while (PNum < PlayerNum)
         {
-            int XP = Random.Range(0, Rows/2);
-            int ZP = Random.Range(0, Columns/2);
+            int XP = Random.Range(0, Rows / 2);
+            int ZP = Random.Range(0, Columns / 2);
 
-            spawnpositon = new Vector3(XP, 1.5f, ZP);
+            Spawnpositon = new Vector3(XP, 1.5f, ZP);
 
-            // ´ÓÎïÌåÖĞĞÄÏòÏÂ·¢ÉäÒ»ÌõÉäÏß
-            Ray ray = new Ray(spawnpositon, -Vector3.up);
-            // ´´½¨Ò»¸ö RaycastHit ¶ÔÏó£¬ÓÃÓÚ´æ´¢ÉäÏß¼ì²âµÄ½á¹û
+            // ä»ç‰©ä½“ä¸­å¿ƒå‘ä¸‹å‘å°„ä¸€æ¡å°„çº¿
+            Ray ray = new Ray(Spawnpositon, -Vector3.up);
+            // åˆ›å»ºä¸€ä¸ª RaycastHit å¯¹è±¡ï¼Œç”¨äºå­˜å‚¨å°„çº¿æ£€æµ‹çš„ç»“æœ
             RaycastHit hit;
-            // ½øĞĞÉäÏß¼ì²â
-            if (Physics.Raycast(ray, out hit,2))
+            // è¿›è¡Œå°„çº¿æ£€æµ‹
+            if (Physics.Raycast(ray, out hit, 2))
             {
-                // ¼ì²âµ½ÎïÌå
+                // æ£€æµ‹åˆ°ç‰©ä½“
                 GameObject hitObject = hit.collider.gameObject;
                 if (hitObject != null)
                 {
                     // Generate Player
-                    Instantiate(Player, spawnpositon, Quaternion.identity);
+                    // Instantiate(Player, spawnpositon, Quaternion.identity);
+                    PlayerInit.Instance.SetPlayerSpawn(Spawnpositon);
                     PNum++;
                 }
             }
 
         }
     }
-     void LightCreate()
+    void LightCreate()
     {
         LightHolder = new GameObject("Light").transform;
 
@@ -151,13 +151,13 @@ public class MazeGenerator : MonoBehaviour
         {
             int XP = Random.Range(0, Mathf.FloorToInt(Rows * cellSize));
             int ZP = Random.Range(0, Mathf.FloorToInt(Columns * cellSize));
-            Instantiate(Light, new Vector3(XP, 20f, ZP), Quaternion.Euler(90f,0f,0f), LightHolder);
+            Instantiate(Light, new Vector3(XP, 20f, ZP), Quaternion.Euler(90f, 0f, 0f), LightHolder);
             LNum++;
         }
     }
-     void SkyLightCreate()
+    void SkyLightCreate()
     {
-        Instantiate(SkyLight, new Vector3(Rows * cellSize / 2, 50f, Columns * cellSize / 2), Quaternion.Euler(90f,0f,0f));
+        Instantiate(SkyLight, new Vector3(Rows * cellSize / 2, 50f, Columns * cellSize / 2), Quaternion.Euler(90f, 0f, 0f));
     }
 
 }
