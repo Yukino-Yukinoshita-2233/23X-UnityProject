@@ -28,6 +28,8 @@ namespace Cinemachine.Examples
         float m_currentJumpSpeed;
         float m_restY;
 
+        Animator animator;
+
         private void Reset()
         {
             Speed = 5;
@@ -41,6 +43,7 @@ namespace Cinemachine.Examples
 
         private void OnEnable()
         {
+            animator = GetComponent<Animator>();
             m_currentJumpSpeed = 0;
             m_restY = transform.position.y;
             SpaceAction -= Jump;
@@ -78,16 +81,20 @@ namespace Cinemachine.Examples
             var desiredVelocity = input * Speed;
             var deltaVel = desiredVelocity - m_currentVleocity;
             m_currentVleocity += Damper.Damp(deltaVel, VelocityDamping, dt);
-
             transform.position += m_currentVleocity * dt;
             if (RotatePlayer && m_currentVleocity.sqrMagnitude > 0.01f)
             {
+                animator.SetBool("isRun", true);
                 var qA = transform.rotation;
                 var qB = Quaternion.LookRotation(
                     (InputForward == ForwardMode.Player && Vector3.Dot(fwd, m_currentVleocity) < 0)
                         ? -m_currentVleocity
                         : m_currentVleocity);
                 transform.rotation = Quaternion.Slerp(qA, qB, Damper.Damp(1, VelocityDamping, dt));
+            }
+            else
+            {
+                animator.SetBool("isRun", false);
             }
 
             // Process jump
