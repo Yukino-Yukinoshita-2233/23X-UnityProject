@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 698730097}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1312,7 +1312,6 @@ MonoBehaviour:
     type: 3}
   GroundPrefab: {fileID: 1924974383546116734, guid: f8bfe7a0839936f4f9b59ec35c04c553,
     type: 3}
-  Player: {fileID: 5307689609262835518, guid: 281251adc3f3b68498bd7229b6e091fe, type: 3}
   Key: {fileID: 2504099637474622356, guid: feea6bfc9f323d447ab13343202ca954, type: 3}
   Light: {fileID: 1375017989294163849, guid: a0cd8bc6c151a7440b7e87cee97f410a, type: 3}
   SkyLight: {fileID: 7604516128532823484, guid: ce0514401d08a674ca9bdb496d0c5e04,

@@ -90,11 +90,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2bcbf978ca98a61428c139a7bd8458b9,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7487156816756392523}
+      addedObject: {fileID: 2690796623838155384}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2bcbf978ca98a61428c139a7bd8458b9,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -7880468189350513467}
+      addedObject: {fileID: 6608237803197343886}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2bcbf978ca98a61428c139a7bd8458b9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5399006258570094722}
   m_SourcePrefab: {fileID: 100100000, guid: 2bcbf978ca98a61428c139a7bd8458b9, type: 3}
 --- !u!1 &1410325713818736360 stripped
 GameObject:
@@ -102,8 +106,8 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2257167708133977017}
   m_PrefabAsset: {fileID: 0}
---- !u!143 &7487156816756392523
-CharacterController:
+--- !u!136 &2690796623838155384
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -120,15 +124,39 @@ CharacterController:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2.99
-  m_Radius: 0.53
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: -0.04, y: 1.14, z: 0}
---- !u!114 &-7880468189350513467
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.8
+  m_Direction: 1
+  m_Center: {x: 0.04, y: 1.24, z: 0}
+--- !u!54 &6608237803197343886
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410325713818736360}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &-5399006258570094722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,9 +165,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1410325713818736360}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19d4fa525f09cca47bcfbf92bfa05a84, type: 3}
+  m_Script: {fileID: 11500000, guid: fa14cc4c274b78b4c820064214bdbb60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 10
-  moveSpeed: 3
-  forceMagnitude: 10
+  Speed: 5
+  VelocityDamping: 0.5
+  JumpTime: 1
+  InputForward: 0
+  RotatePlayer: 1
