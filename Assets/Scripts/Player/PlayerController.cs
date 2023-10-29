@@ -8,48 +8,32 @@ public class PlayerController : MonoBehaviour
     private float mouseX;
     private float mouseY;
     private CharacterController controller;
-    public float forceMagnitude = 10f; // ���Ĵ�С
-    private Rigidbody rb; // ����ĸ������
+    public float forceMagnitude = 10f;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         controller = GetComponent<CharacterController>();
-        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         HandleMovement();
         MouseController();
         Gravity();
-
     }
 
     private void Gravity()
     {
-        // ��ȡ�����λ��
         Vector3 objectPosition = transform.position;
-
-        // �������������·���һ������
         Ray ray = new Ray(objectPosition, -Vector3.up);
-
-        // ����һ�� RaycastHit �������ڴ洢���߼��Ľ��
         RaycastHit hit;
-
-
-
-        // �������߼��
         if (Physics.Raycast(ray, out hit))
         {
-            // ��⵽����
             GameObject hitObject = hit.collider.gameObject;
-            float distance = hit.distance; // ��ȡ���߻�������ľ���
+            float distance = hit.distance;
 
-            //Debug.Log("���߻��������壺" + hitObject.name);
-            //Debug.Log("���룺" + distance);
             if (distance > 1)
             {
                 gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
@@ -60,11 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
         }
-
-
-
     }
-
 
     void HandleMovement()
     {
@@ -81,9 +61,6 @@ public class PlayerController : MonoBehaviour
     {
         mouseX = Input.GetAxis(GameConstants.MouseAxisNameHorizontal) * rotationSpeed * 10 * Time.deltaTime;
         transform.Rotate(new Vector3(0f, mouseX, 0f), Space.Self);
-
-        mouseY -= Input.GetAxis(GameConstants.MouseAxisNameVertical) * rotationSpeed * 10 * Time.deltaTime;
-        mouseY = Mathf.Clamp(mouseY, -40f, 40f);
-        Camera.main.transform.localEulerAngles = new Vector3(mouseY, 0, 0);
     }
+
 }
