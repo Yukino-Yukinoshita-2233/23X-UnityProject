@@ -217,7 +217,8 @@ public class LobbyController : NetworkBehaviour
 
     private void OnStartBtnClick()
     {
-        NetworkManager.Singleton.SceneManager.LoadScene("Maze", LoadSceneMode.Single);
+        // NetworkManager.Singleton.SceneManager.LoadScene("Maze", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("Maze001", LoadSceneMode.Single);
     }
 
     private void AddPlayer(PlayerInfo playerInfo)

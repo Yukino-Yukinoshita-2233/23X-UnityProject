@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
@@ -9,6 +6,7 @@ public class CameraController : NetworkBehaviour
 {
     public static CameraController Instance;
     public CinemachineVirtualCamera _cam;
+    public Transform PlayerSpawn;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -26,5 +24,10 @@ public class CameraController : NetworkBehaviour
     public void SetFollowTarget(Transform player)
     {
         _cam.Follow = player;
+    }
+
+    public Vector3 GetSpawnPosition()
+    {
+        return PlayerSpawn.position + new Vector3(-0.5f, 0, 0.5f);
     }
 }

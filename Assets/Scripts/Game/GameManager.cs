@@ -26,6 +26,9 @@ public class GameManager : NetworkBehaviour
             case "Maze":
                 OnStartGame.Invoke();
                 break;
+            case "Maze001":
+                OnStartGame.Invoke();
+                break;
             default:
                 break;
         }
