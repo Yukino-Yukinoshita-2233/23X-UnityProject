@@ -48,7 +48,7 @@ public class MazeGenerator : MonoBehaviour
 
         // 从起始点开始生成迷宫
         GeneratePath(0, 0);
-
+        Debug.Log(visited[1,1]);
         // 根据visited数组生成迷宫墙壁和地面
         for (int row = 0; row < Rows; row++)
         {
