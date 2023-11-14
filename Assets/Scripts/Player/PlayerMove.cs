@@ -110,8 +110,6 @@ namespace Cinemachine.Examples
 
             transform.position = p;
 
-            Gravity();
-
             if (Input.GetKeyDown(KeyCode.Space) && SpaceAction != null)
                 SpaceAction();
             if (Input.GetKeyDown(KeyCode.Return) && EnterAction != null)
@@ -126,27 +124,5 @@ namespace Cinemachine.Examples
             m_currentJumpSpeed += 10 * JumpTime * 0.5f;
         }
 
-        private void Gravity()
-        {
-            float forceMagnitude = 10f;
-            Vector3 objectPosition = transform.position;
-            Ray ray = new Ray(objectPosition, -Vector3.up);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                GameObject hitObject = hit.collider.gameObject;
-
-                float distance = hit.distance;
-
-                if (distance > 1)
-                {
-                    gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
-                }
-            }
-            else
-            {
-                gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
-            }
-        }
     }
 }

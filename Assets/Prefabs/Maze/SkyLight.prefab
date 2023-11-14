@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3998468692231315929}
   - component: {fileID: 1698679112175322586}
   - component: {fileID: 9050433369250706918}
+  - component: {fileID: -4457912880122787601}
   m_Layer: 0
   m_Name: SkyLight
   m_TagString: Untagged
@@ -137,3 +138,23 @@ MonoBehaviour:
   maxWaitTime: 7
   minWaitTime2: 1
   maxWaitTime2: 5
+--- !u!114 &-4457912880122787601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604516128532823484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
