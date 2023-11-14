@@ -21,7 +21,6 @@ public class PlayerInit : NetworkBehaviour
         PlayerSync playerSync = GetComponent<PlayerSync>();
         playerSync.SetTarget(Player);
         playerSync.enabled = true;
-        SetPlayerSpawn(CameraController.Instance.GetSpawnPosition());
         if (IsLocalPlayer)
         {
             Player.GetComponent<PlayerMove>().enabled = true;
