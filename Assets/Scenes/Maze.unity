@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cam: {fileID: 1196353160}
-  PlayerSpawn: {fileID: 0}
 --- !u!1 &361811094
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +321,7 @@ GameObject:
   - component: {fileID: 698730095}
   - component: {fileID: 698730093}
   - component: {fileID: 698730097}
+  - component: {fileID: 698730098}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -473,6 +473,14 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!81 &698730098
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698730092}
+  m_Enabled: 1
 --- !u!1 &935795064
 GameObject:
   m_ObjectHideFlags: 0
