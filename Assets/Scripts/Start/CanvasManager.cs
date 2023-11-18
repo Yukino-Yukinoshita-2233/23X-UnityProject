@@ -30,7 +30,7 @@ public class CanvasManager : NetworkBehaviour
         if (ushort.TryParse(_port.text, out ushort port))
         {
             // Bind IP:Port
-            transport.SetConnectionData(_ip.text, port);
+            transport.SetConnectionData("0.0.0.0", port);
             // 启动服务端
             NetworkManager.Singleton.StartHost();
             // 进入大厅
