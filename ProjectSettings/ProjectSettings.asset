@@ -101,7 +101,11 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 1
   allowFullscreenSwitch: 1
+<<<<<<< HEAD
   fullscreenMode: 0
+=======
+  fullscreenMode: 2
+>>>>>>> 63ddeb0cbd4d8d5479f993dc0b2a5cbcb841d86b
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0

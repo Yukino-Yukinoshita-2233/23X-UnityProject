@@ -28,7 +28,8 @@ namespace Cinemachine.Examples
         float m_currentJumpSpeed;
         float m_restY;
 
-        Animator animator;
+        // Animator animator;
+        OwnerNetworkAnimator animator;
 
         private void Reset()
         {
@@ -43,7 +44,8 @@ namespace Cinemachine.Examples
 
         private void OnEnable()
         {
-            animator = GetComponent<Animator>();
+            // animator = GetComponent<Animator>();
+            animator = GetComponent<OwnerNetworkAnimator>();
             m_currentJumpSpeed = 0;
             m_restY = transform.position.y;
             SpaceAction -= Jump;
@@ -84,7 +86,8 @@ namespace Cinemachine.Examples
             transform.position += m_currentVleocity * dt;
             if (RotatePlayer && m_currentVleocity.sqrMagnitude > 0.01f)
             {
-                animator.SetBool("isRun", true);
+                // animator.SetBool("isRun", true);
+                animator.Animator.SetBool("isRun", true);
                 var qA = transform.rotation;
                 var qB = Quaternion.LookRotation(
                     (InputForward == ForwardMode.Player && Vector3.Dot(fwd, m_currentVleocity) < 0)
@@ -94,7 +97,8 @@ namespace Cinemachine.Examples
             }
             else
             {
-                animator.SetBool("isRun", false);
+                // animator.SetBool("isRun", false);
+                animator.Animator.SetBool("isRun", false);
             }
 
             // Process jump
@@ -110,8 +114,6 @@ namespace Cinemachine.Examples
 
             transform.position = p;
 
-            Gravity();
-
             if (Input.GetKeyDown(KeyCode.Space) && SpaceAction != null)
                 SpaceAction();
             if (Input.GetKeyDown(KeyCode.Return) && EnterAction != null)
@@ -126,27 +128,5 @@ namespace Cinemachine.Examples
             m_currentJumpSpeed += 10 * JumpTime * 0.5f;
         }
 
-        private void Gravity()
-        {
-            float forceMagnitude = 10f;
-            Vector3 objectPosition = transform.position;
-            Ray ray = new Ray(objectPosition, -Vector3.up);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                GameObject hitObject = hit.collider.gameObject;
-
-                float distance = hit.distance;
-
-                if (distance > 1)
-                {
-                    gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
-                }
-            }
-            else
-            {
-                gameObject.transform.position -= new Vector3(0, forceMagnitude * Time.deltaTime, 0);
-            }
-        }
     }
 }

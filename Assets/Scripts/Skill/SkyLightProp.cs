@@ -5,12 +5,12 @@ public class SkyLightProp : MonoBehaviour
 {
     public float maxIntensity = 1f;     // 最高强度
 
-    private Light myLight;
+    public Light myLight;
     private float targetIntensity;
 
     private void Start()
     {
-        myLight = GetComponent<Light>();
+        //myLight = GetComponent<Light>();
     }
 
     private void Update()

@@ -26,10 +26,21 @@ public class CanvasManager : NetworkBehaviour
 
     private void OnCreateBtnClick()
     {
-        // 启动服务端
-        NetworkManager.Singleton.StartHost();
-        // 进入大厅
-        GameManager.Instance.LoadScene("Lobby");
+        var transport = NetworkManager.Singleton.NetworkConfig.NetworkTransport as UnityTransport;
+        if (ushort.TryParse(_port.text, out ushort port))
+        {
+            // Bind IP:Port
+            transport.SetConnectionData("0.0.0.0", port);
+            // 启动服务端
+            NetworkManager.Singleton.StartHost();
+            // 进入大厅
+            GameManager.Instance.LoadScene("Lobby");
+        }
+        else
+        {
+            Debug.LogError("Invaild port");
+        }
+
     }
 
     private void OnJoinBtnClick()
