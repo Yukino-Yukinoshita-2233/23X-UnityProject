@@ -3,19 +3,19 @@ using System.Collections;
 
 public class LightControl : MonoBehaviour
 {
-    public float minSpotAngle = 0.5f;  // ×îµÍÇ¿¶È
-    public float maxSpotAngle = 100f;  // ×î¸ßÇ¿¶È
-    public float minWaitTime = 0.5f;      // ×î¶ÌµÈ´ıÊ±¼ä
-    public float maxWaitTime = 2.0f;      // ×î³¤µÈ´ıÊ±¼ä
-    public float speed = 0.1f;         // ºôÎüËÙ¶È
+    public float minSpotAngle = 0.5f;  // æœ€ä½å¼ºåº¦
+    public float maxSpotAngle = 100f;  // æœ€é«˜å¼ºåº¦
+    public float minWaitTime = 0.5f;      // æœ€çŸ­ç­‰å¾…æ—¶é—´
+    public float maxWaitTime = 2.0f;      // æœ€é•¿ç­‰å¾…æ—¶é—´
+    public float speed = 0.1f;         // å‘¼å¸é€Ÿåº¦
 
-    private Light myLight;             // »òÕßÓÃÓÚ¿ØÖÆµÄ²ÄÖÊ
+    private Light myLight;             // æˆ–è€…ç”¨äºæ§åˆ¶çš„æè´¨
 
     private float targetSpotAngle;
 
     private void Start()
     {
-        myLight = GetComponent<Light>();  // Èç¹ûÊÇµÆ¹â£¬»ñÈ¡µÆ¹â×é¼ş
+        myLight = GetComponent<Light>();  // å¦‚æœæ˜¯ç¯å…‰ï¼Œè·å–ç¯å…‰ç»„ä»¶
         targetSpotAngle = maxSpotAngle;
         StartCoroutine(RandomizeIntensity());
     }
@@ -24,14 +24,14 @@ public class LightControl : MonoBehaviour
     {
         while (true)
         {
-            // Ëæ»úµÈ´ıÊ±¼ä
+            // éšæœºç­‰å¾…æ—¶é—´
             float waitTime = Random.Range(minWaitTime, maxWaitTime);
             yield return new WaitForSeconds(waitTime);
 
-            // Ëæ»úÄ¿±êÇ¿¶È
+            // éšæœºç›®æ ‡å¼ºåº¦
             targetSpotAngle = Random.Range(minSpotAngle, maxSpotAngle);
 
-            // Æ½»¬µØ¹ı¶Éµ½Ä¿±êÇ¿¶È
+            // å¹³æ»‘åœ°è¿‡æ¸¡åˆ°ç›®æ ‡å¼ºåº¦
             float elapsedTime = 0f;
             while (elapsedTime < waitTime)
             {
@@ -41,7 +41,7 @@ public class LightControl : MonoBehaviour
                 yield return null;
             }
 
-            // µÈ´ıÏÂÒ»¸öËæ»úÇ¿¶È±ä»¯
+            // ç­‰å¾…ä¸‹ä¸€ä¸ªéšæœºå¼ºåº¦å˜åŒ–
             yield return null;
         }
     }

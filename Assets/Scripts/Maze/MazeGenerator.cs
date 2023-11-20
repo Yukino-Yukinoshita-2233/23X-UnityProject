@@ -9,6 +9,7 @@ public class MazeGenerator : NetworkBehaviour
     public GameObject Key;
     public GameObject Light;
     public GameObject SkyLight;
+    public float Y_Position = 10f;
     public int PlayerNum = 1;
     public int LightNum = 20;
     public int Rows = 50;            // 迷宫行数
@@ -30,7 +31,7 @@ public class MazeGenerator : NetworkBehaviour
             LightCreate();
             SkyLightCreate();
             // Generate Key
-            var _obj = Instantiate(Key, new Vector3(Rows - 2, 1.5f, Columns - 2), Quaternion.identity);
+            var _obj = Instantiate(Key, new Vector3(Rows - 2, Y_Position + 1.5f, Columns - 2), Quaternion.identity);
             _obj.GetComponent<NetworkObject>().Spawn();
         }
     }
@@ -63,7 +64,7 @@ public class MazeGenerator : NetworkBehaviour
                 }
                 else
                 {
-                    var _obj = Instantiate(GroundPrefab, new Vector3(col * cellSize, 0, row * cellSize), Quaternion.identity, mazeHolder);
+                    var _obj = Instantiate(GroundPrefab, new Vector3(col * cellSize, Y_Position, row * cellSize), Quaternion.identity, mazeHolder);
                     _obj.GetComponent<NetworkObject>().Spawn();
                 }
             }
@@ -122,7 +123,7 @@ public class MazeGenerator : NetworkBehaviour
             int XP = Random.Range(0, Rows / 2);
             int ZP = Random.Range(0, Columns / 2);
 
-            Spawnpositon = new Vector3(XP, 1.5f, ZP);
+            Spawnpositon = new Vector3(XP, Y_Position + 1.5f, ZP);
 
             // 从物体中心向下发射一条射线
             Ray ray = new Ray(Spawnpositon, -Vector3.up);
@@ -154,7 +155,7 @@ public class MazeGenerator : NetworkBehaviour
         {
             int XP = Random.Range(0, Mathf.FloorToInt(Rows * cellSize));
             int ZP = Random.Range(0, Mathf.FloorToInt(Columns * cellSize));
-            var _obj = Instantiate(Light, new Vector3(XP, 20f, ZP), Quaternion.Euler(90f, 0f, 0f), LightHolder);
+            var _obj = Instantiate(Light, new Vector3(XP, Y_Position + 20f, ZP), Quaternion.Euler(90f, 0f, 0f), LightHolder);
             _obj.GetComponent<NetworkObject>().Spawn();
             LNum++;
         }
@@ -162,7 +163,7 @@ public class MazeGenerator : NetworkBehaviour
 
     void SkyLightCreate()
     {
-        var _obj = Instantiate(SkyLight, new Vector3(Rows * cellSize / 2, 50f, Columns * cellSize / 2), Quaternion.Euler(90f, 0f, 0f));
+        var _obj = Instantiate(SkyLight, new Vector3(Rows * cellSize / 2, Y_Position + 50f, Columns * cellSize / 2), Quaternion.Euler(90f, 0f, 0f));
         _obj.GetComponent<NetworkObject>().Spawn();
     }
 

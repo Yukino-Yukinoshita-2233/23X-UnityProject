@@ -3,12 +3,12 @@ using System.Collections;
 
 public class SkyLightControl : MonoBehaviour
 {
-    public float minIntensity = 0f;     // ×îµÍÇ¿¶È
-    public float maxIntensity = 1.5f;     // ×î¸ßÇ¿¶È
-    public float minWaitTime = 0.5f;      // ×î¶ÌµÈ´ıÊ±¼ä
-    public float maxWaitTime = 5.0f;      // ×î³¤µÈ´ıÊ±¼ä
-    public float minWaitTime2 = 3f;      // ×î¶ÌµÈ´ıÊ±¼ä
-    public float maxWaitTime2 = 10.0f;      // ×î³¤µÈ´ıÊ±¼ä
+    public float minIntensity = 0f;     // æœ€ä½å¼ºåº¦
+    public float maxIntensity = 1.5f;     // æœ€é«˜å¼ºåº¦
+    public float minWaitTime = 0.5f;      // æœ€çŸ­ç­‰å¾…æ—¶é—´
+    public float maxWaitTime = 5.0f;      // æœ€é•¿ç­‰å¾…æ—¶é—´
+    public float minWaitTime2 = 3f;      // æœ€çŸ­ç­‰å¾…æ—¶é—´
+    public float maxWaitTime2 = 10.0f;      // æœ€é•¿ç­‰å¾…æ—¶é—´
 
     private Light myLight;
     private float targetIntensity;
@@ -23,15 +23,15 @@ public class SkyLightControl : MonoBehaviour
     {
         while (true)
         {
-            // Ëæ»úµÈ´ıÊ±¼ä
+            // éšæœºç­‰å¾…æ—¶é—´
             float waitTime = Random.Range(minWaitTime, maxWaitTime);
             float waitTime2 = Random.Range(minWaitTime2, maxWaitTime2);
             yield return new WaitForSeconds(waitTime);
 
-            // Ëæ»úÄ¿±êÇ¿¶È
+            // éšæœºç›®æ ‡å¼ºåº¦
             targetIntensity = Random.Range(minIntensity, maxIntensity);
 
-            // Æ½»¬µØ¹ı¶Éµ½Ä¿±êÇ¿¶È
+            // å¹³æ»‘åœ°è¿‡æ¸¡åˆ°ç›®æ ‡å¼ºåº¦
             float elapsedTime = 0f;
             while (elapsedTime < waitTime)
             {
@@ -51,7 +51,7 @@ public class SkyLightControl : MonoBehaviour
                 yield return null;
             }
 
-            // µÈ´ıÏÂÒ»¸öËæ»úÇ¿¶È±ä»¯
+            // ç­‰å¾…ä¸‹ä¸€ä¸ªéšæœºå¼ºåº¦å˜åŒ–
             yield return null;
         }
     }
