@@ -132,8 +132,8 @@ public class MazeGenerator : MonoBehaviour
                 GameObject hitObject = hit.collider.gameObject;
                 if (hitObject != null)
                 {
-                    // Generate Player
-                    // Instantiate(Player, spawnpositon, Quaternion.identity);
+                    //Generate Player
+                    //Instantiate(Player, Spawnpositon, Quaternion.identity);
                     PlayerInit.Instance.SetPlayerSpawn(Spawnpositon);
                     PNum++;
                 }
