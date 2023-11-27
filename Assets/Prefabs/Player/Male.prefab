@@ -118,10 +118,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6951728134780368277}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 144879583c763e343aaa65e3c2597145,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -5775440769730599474}
   m_SourcePrefab: {fileID: 100100000, guid: 144879583c763e343aaa65e3c2597145, type: 3}
 --- !u!95 &3189463794970850668 stripped
 Animator:
@@ -216,17 +212,3 @@ MonoBehaviour:
   JumpTime: 1
   InputForward: 0
   RotatePlayer: 1
---- !u!114 &-5775440769730599474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8208017116393731500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce843f04c506cc48b1bd9a72e14dee8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxIntensity: 1
-  myLight: {fileID: 3998468692231315929, guid: ce0514401d08a674ca9bdb496d0c5e04, type: 3}
