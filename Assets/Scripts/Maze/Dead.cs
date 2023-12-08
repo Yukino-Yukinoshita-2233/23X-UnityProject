@@ -6,7 +6,7 @@ public class Dead : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             PlayerInit.Instance.SetPlayerSpawn(MazeGenerator.Instance.Spawnpositon);
         }
