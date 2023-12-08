@@ -8,7 +8,7 @@ public class Dead : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            PlayerInit.Instance.SetPlayerSpawn(MazeGenerator.Instance.Spawnpositon);
+            // PlayerInit.Instance.SetPlayerSpawn(MazeGenerator.Instance.Spawnpositon.Value);
         }
     }
 }

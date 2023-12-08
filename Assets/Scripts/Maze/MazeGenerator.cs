@@ -4,13 +4,12 @@ using Unity.Netcode;
 public class MazeGenerator : NetworkBehaviour
 {
     public static MazeGenerator Instance;
-    public Vector3 Spawnpositon { get; set; }
+    public NetworkVariable<Vector3> Spawnpositon = new NetworkVariable<Vector3>();
     public GameObject GroundPrefab; // 地面预制件
     public GameObject Key;
     public GameObject Light;
     public GameObject SkyLight;
     public float Y_Position = 10f;
-    public int PlayerNum = 1;
     public int LightNum = 20;
     public int Rows = 50;            // 迷宫行数
     public int Columns = 50;         // 迷宫列数
@@ -117,16 +116,15 @@ public class MazeGenerator : NetworkBehaviour
 
     public void PlayerCreate()
     {
-        int PNum = 0;
-        while (PNum < PlayerNum)
+        while (true)
         {
             int XP = Random.Range(0, Rows / 2);
             int ZP = Random.Range(0, Columns / 2);
 
-            Spawnpositon = new Vector3(XP, Y_Position + 1.5f, ZP);
+            Spawnpositon.Value = new Vector3(XP, Y_Position + 1.5f, ZP);
 
             // 从物体中心向下发射一条射线
-            Ray ray = new Ray(Spawnpositon, -Vector3.up);
+            Ray ray = new Ray(Spawnpositon.Value, -Vector3.up);
             // 创建一个 RaycastHit 对象，用于存储射线检测的结果
             RaycastHit hit;
             // 进行射线检测
@@ -136,13 +134,9 @@ public class MazeGenerator : NetworkBehaviour
                 GameObject hitObject = hit.collider.gameObject;
                 if (hitObject != null)
                 {
-                    //Generate Player
-                    //Instantiate(Player, Spawnpositon, Quaternion.identity);
-                    PlayerInit.Instance.SetPlayerSpawn(Spawnpositon);
-                    PNum++;
+                    break;
                 }
             }
-
         }
     }
 
