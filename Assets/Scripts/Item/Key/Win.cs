@@ -1,22 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Win : MonoBehaviour
+public class Win : NetworkBehaviour
 {
     private new AudioSource audio;
+
     private void Start()
     {
         audio = GetComponent<AudioSource>();
     }
-    // Win the game
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("Player"))
         {
-            Debug.Log("You win the game!");
-            audio.Play();
-            Time.timeScale = 0;
+            if (other.GetComponent<NetworkObject>().IsOwner && IsServer)
+            {
+
+            }
+            else
+            {
+                UpdateWinServerRpc();
+            }
         }
     }
+
+    [ClientRpc]
+    private void UpdateWinClientRpc()
+    {
+
+    }
+
+    [ServerRpc]
+    private void UpdateWinServerRpc()
+    {
+
+    }
+
+
 }
