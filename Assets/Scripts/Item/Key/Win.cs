@@ -14,14 +14,8 @@ public class Win : NetworkBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            if (other.GetComponent<NetworkObject>().IsOwner && IsServer)
-            {
-
-            }
-            else
-            {
-                UpdateWinServerRpc();
-            }
+            Debug.Log("IsServer: "+IsServer);
+            Debug.Log("IsClient: "+IsClient);
         }
     }
 

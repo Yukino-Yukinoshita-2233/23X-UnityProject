@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class EnergyBulletsSkill : MonoBehaviour
 {
     [SerializeField]
+    GameObject PlayerPosition;
     //GameObject EnergyBulletsPrefab;
     // 定义一个公有变量，用来引用子弹的预制体
     public GameObject bulletPrefab;
@@ -26,7 +28,16 @@ public class EnergyBulletsSkill : MonoBehaviour
     }
     void Start()
     {
-        spawnPoint.position = gameObject.GetComponent<Transform>().position + new Vector3(0.15f, 1, 1f); 
+        //bulletPrefab = Resources.Load("/PlayerSkill/bulletPrefab");
+        if(GameObject.FindWithTag("Player") != null)
+        {
+            PlayerPosition = GameObject.FindWithTag("Player");
+            Debug.Log("Player");
+        }
+        spawnPoint.position = PlayerPosition.GetComponent<Transform>().position + new Vector3(0.15f, 1, 1f);
+
+
+
     }
     // 在 Update 函数中检测玩家的输入
     void Update()
@@ -34,8 +45,9 @@ public class EnergyBulletsSkill : MonoBehaviour
         // 如果玩家按下鼠标左键
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Player Fire");
             // 生成一个子弹，位置为生成位置，旋转为玩家的旋转
-            currentBullet = Instantiate(bulletPrefab, spawnPoint.position, transform.rotation * Quaternion.Euler(90,0,0));
+            currentBullet = Instantiate(bulletPrefab, spawnPoint.position, spawnPoint.transform.rotation * Quaternion.Euler(90,0,0));
             // 获取子弹的脚本组件
             EnergyBullets bullet = currentBullet.GetComponent<EnergyBullets>();
             // 设置子弹的速度为 0，让它暂时不动
