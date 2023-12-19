@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5107408aa498d84aaa10244bfdbb187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WinCanvas: {fileID: 0}
+  ReturnMuneBtn: {fileID: 0}
 --- !u!82 &-7869827609836455730
 AudioSource:
   m_ObjectHideFlags: 0
